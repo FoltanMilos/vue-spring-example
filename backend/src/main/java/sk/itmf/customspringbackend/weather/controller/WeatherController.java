@@ -1,18 +1,16 @@
 package sk.itmf.customspringbackend.weather.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.swagger.v3.oas.annotations.Operation;
 import sk.itmf.customspringbackend.weather.dto.WeatherAggregatedRecord;
 import sk.itmf.customspringbackend.weather.service.WeatherService;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,7 +22,7 @@ import static sk.itmf.customspringbackend.weather.enumeration.SupportedLocations
 @RestController
 @RequiredArgsConstructor
 public class WeatherController {
-    
+
     private final WeatherService weatherService;
 
     @ApiResponses({
@@ -35,9 +33,9 @@ public class WeatherController {
     public List<WeatherAggregatedRecord> getAllWeatherTimeSeries() {
         //testing purposes :)
         return Stream.of(
-            weatherService.getActualWeatherInfo(ZILINA.getLongitude(), ZILINA.getLatitude()).orElse(null),   
-            weatherService.getActualWeatherInfo(BRATISLAVA.getLongitude(), BRATISLAVA.getLatitude()).orElse(null),   
-            weatherService.getActualWeatherInfo(BRNO.getLongitude(), BRNO.getLatitude()).orElse(null)
+                weatherService.getActualWeatherInfo(ZILINA.getLongitude(), ZILINA.getLatitude()).orElse(null),
+                weatherService.getActualWeatherInfo(BRATISLAVA.getLongitude(), BRATISLAVA.getLatitude()).orElse(null),
+                weatherService.getActualWeatherInfo(BRNO.getLongitude(), BRNO.getLatitude()).orElse(null)
         ).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }
